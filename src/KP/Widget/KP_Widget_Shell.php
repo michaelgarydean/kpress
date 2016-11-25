@@ -1,4 +1,8 @@
 <?php
+    
+    namespace KP\Widget;
+	use WP_Query;
+
     /**
      * A widget shell is used to preserve the naming standard and parent functions
      * defined in KP_Entity as PHP doesn't not allow for multiple inheritance.

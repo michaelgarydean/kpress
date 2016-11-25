@@ -1,5 +1,10 @@
 <?php
     
+    namespace KP\Widget;
+    
+    use KP\KP_Entity;
+    use KP\KP_Widget_Shell;
+    
     class KP_Widget extends KP_Entity {
         protected $description;
         
