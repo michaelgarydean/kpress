@@ -37,7 +37,8 @@
          * @return void
          */
         public function add_metabox( $metaboxes ) {
-            //replace the metaboxes array if input is an array, or create a new array if singular
+            
+            //Replace the metaboxes array if input is an array, or create a new array if singular
             if( is_array($metaboxes) ) {
                 $this->metaboxes = $metaboxes;
             } else {
@@ -62,7 +63,7 @@
                 add_meta_box(
                     $metabox->machine_name,                 //machine name to reference metabox
                     __( $metabox->label, 'kp' ),            //label of metabox, internationalized
-                    array($metabox, 'display_content'),     //callback function to display content in the metabox
+                    array( $metabox, 'create_content' ),    //callback function to display content in the metabox
                     $this->machine_name,                    //name of the post type to add metabox to
                     $metabox->section,                      //context/location to display metabox
                     $metabox->priority                      //priority within the context/location

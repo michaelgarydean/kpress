@@ -55,10 +55,10 @@
          */
         public function __construct( $label, $slug = null ) {
             
-            //save the label of the post type and create a machine name to reference it by
+            //Save the label of the post type and create a machine name to reference it by
             parent::__construct( $label );
             
-            //additional options for the content type - used for the Wordpress register_post_type()
+            //Additional options for the content type - used for the Wordpress register_post_type()
             $this->args = array(
                 'label'            => $this->label,
                 'menu_position'     => 5,
@@ -68,10 +68,10 @@
                 'can_export'        => true
             );
             
-            //set the slug for the post type
+            //Set the slug for the post type
             $this->set_slug( $slug );
             
-            //register the post type
+            //Register the post type
             add_action( 'init', array( $this, 'add_post_type' ) );
         }
         
@@ -95,6 +95,7 @@
          * @return void
          */
         public function remove_content_editor() {
+            
             //deregister the action registered in the constructor
             remove_action( 'init', array( $this, 'add_post_type' ) );
             

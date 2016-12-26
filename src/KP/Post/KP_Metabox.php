@@ -3,6 +3,11 @@
     namespace KP\Post;
     use KP\Post;
     use KP\KP_Entity;
+    
+        
+    /**
+     * @TODO The add_field() method should be moved to KP_Entity for use without metaboxes, or with widgets.
+     */    
 
     class KP_Metabox extends KP_Entity {
         private $fields;
@@ -130,19 +135,20 @@
          * Input types are the types used in HTML forms <input></input>
          *  If no input_type is defined, the default input is text
          * 
-         * @see KP_Metabox::display_field()
+         * @see KP_Metabox::create_field()
          * @see KP_Entity::create_machine_name()
          * 
-         * @param string $field_name The label to display for the field. Also used to create the machine_name.
-         * @param string $input_type The type of <input> element.
-         * @param string[] $input_values Any options required for the <input> element, such as radio button options.
+         * @param string $field_name    The label to display for the field. Also used to create the machine_name.
+         * @param string $input_type    The type of <input> element.
+         * @param string $required      Mark this element for form validation.
+         * @param string[]              $input_values Any options required for the <input> element, such as radio button options.
          * 
          * @return Csnqc_Custom_Field $field The field object created by the function.
          */
-        public function add_field( $field_name, $required = false, $input_type = 'text', $input_values = array() ) {
+        public function add_field( $field_name, $input_type = 'text', $input_values = array(), $required = false ) {
             
             //Create a new custom field object
-            $field = new KP_Custom_Field( $field_name, $this, strval( $input_type ), $input_values );
+            $field = new KP_Custom_Field( $field_name, strval( $input_type ), $input_values, $this );
             
             //Set as required (for form validation)
             $field->required = $required;
@@ -156,7 +162,7 @@
         /**
          * Add a new TinyMCE text editor to the metabox.
          * 
-         * @see KP_Metabox::display_editor()
+         * @see KP_Metabox::create_editor()
          */        
         public function add_editor() {
         }
@@ -164,7 +170,7 @@
         /**
          * Show the TinyMCE editor to show up in the metabox.
          */
-        private function display_editor() {
+        private function create_editor() {
         }
         
         /**
@@ -182,9 +188,9 @@
          * 
          * @return void
          */
-        public function display_content( $post ) {
-            $this->display_fields( $post );
-            $this->display_editors( $post );
+        public function create_content( $post ) {
+            $this->create_fields( $post );
+            $this->create_editors( $post );
         }
         
         /**
@@ -195,13 +201,13 @@
          * 
          * @see KP_Metabox::register_content()
          * @see KP_Post_Type::register_metaboxes()
-         * @see KP_Custom_Field::display_field()
+         * @see KP_Custom_Field::create_field()
          * 
          * @param WP_Post $post The WP_Post object of the current post.
          * 
          * @return void
          */
-        private function display_fields( $post ) {
+        private function create_fields( $post ) {
             
             /** 
              * Adds a "number used once" to the form - a hash of numbers and letters.
@@ -213,11 +219,11 @@
             
             //Output the custom field in the metabox
             foreach( $this->fields as $field ) {
-                $field->display_field( $post );
+                $field->create_field( $post );
             }
         }
         
-        private function display_editors( $post ) {
+        private function create_editors( $post ) {
             
         }
         
