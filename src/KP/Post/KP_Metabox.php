@@ -227,8 +227,4 @@
             
         }
         
-        
-        
-        
-        
     }//end metabox class
